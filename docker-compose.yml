@@ -1,0 +1,39 @@
+version: "3"
+networks:
+  service_network:
+    name: service_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/16
+volumes:
+  vendor_bundle:
+  node_modules:
+services:
+  app:
+    tty: true
+    build: ./app
+    volumes:
+      - ./app:/opt/app
+      - vendor_bundle:/opt/app/vendor_bundle
+      - node_modules:/opt/app/node_modules
+    restart: always
+    ports: ["3000:3000"]
+    command: /bin/bash -c "bundle install && bundle exec rails server -b 0.0.0.0"
+    networks:
+      service_network:
+        ipv4_address: 172.22.0.2
+  db:
+    build: ./db
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+    tty: true
+    volumes:
+      - ./db/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./db/data:/var/lib/mysql
+      - ./logs/mysql:/var/log/mysql
+    restart: always
+    networks:
+      service_network:
+        ipv4_address: 172.22.0.3
