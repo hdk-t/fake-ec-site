@@ -1,0 +1,2 @@
+class MstCategory < ApplicationRecord
+end

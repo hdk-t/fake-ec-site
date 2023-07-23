@@ -1,0 +1,31 @@
+<div class="continer">
+    <%= image_tag "/assets/#{@item_detail.item_image_path}", size: '400x400' %>
+    <h1><%= @item_detail.item_name %></h1>
+    <a>商品ID: <%= @item_detail.item_id %></a><br>
+    <a>価格: ￥<%= @item_detail.item_price %></a><br>
+    <a>商品説明: <%= @item_detail.item_sentence %></a><br>
+    <a>メーカー: <%= @item_detail.maker_name %></a><br>
+    <a>メーカー説明: <%= @item_detail.maker_sentence %></a><br>
+    <a>カテゴリ: <%= @item_detail.category_name %></a><br>
+    <a>投稿レビュー数: <%= @item_detail.review_count %></a><br>
+    <a>レビュー評価の平均: <%= @item_detail.review_rating %> / 5</a><br>
+    <%= link_to 'レビューを見る', reviews_path(@item_detail.item_id) %>
+    <h2 class="mt-5">この商品のメーカーの他の商品</h2>
+    <div class="row">
+        <% @same_maker_items.each do |item| %>
+            <div class="col-md-2 mt-2">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= item.item_name %></h5>
+                        <a>商品ID: <%= item.item_id %></a><br>
+                        <a>商品説明: <%= item.item_sentence %></a><br>
+                        <a>メーカー: <%= item.maker_name %></a><br>
+                        <a>投稿レビュー数: <%= item.review_count %></a><br>
+                        <a>レビュー評価の平均: <%= item.review_rating %> / 5</a><br>
+                        <%= link_to '商品詳細へ', item_detail_path(item.item_id) %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

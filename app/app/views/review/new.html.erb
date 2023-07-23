@@ -1,0 +1,64 @@
+<div class="continer">
+    <%= link_to "#{@item.item_name}の商品ページ", item_detail_path(@item.id) %><br>
+    <%= link_to "#{@item.item_name}のレビュー一覧", reviews_path(@item.id) %>
+    <h2 class="mt-4">レビューを投稿する</h2>
+    <%= form_with(model: @review_form, url: review_create_path(@item.id)) do |form| %>
+        <div class="mt-2">
+            <%= form.label(:reviewer_name, 'お名前', class: 'fw-bold') %>
+            <%= form.text_field(:reviewer_name, value: flash[:old_reviewer_name]) %>
+            <% unless flash[:error_message_reviewer_name].nil? then %>
+                <% flash[:error_message_reviewer_name].each do |message| %>
+                    <br><b class="text-danger"><%= message %></b>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="mt-2">
+            <%= form.label(:review_tag_ids, 'コメントタグ(複数チェック可能)', class: 'fw-bold') %>
+            <%= form.collection_check_boxes(:review_tag_ids, MstReviewTag.all, :id, :review_tag_name, { checked: flash[:old_review_tag_ids], include_hidden: false }) %>
+            <% unless flash[:error_message_review_tag_ids].nil? then %>
+                <% flash[:error_message_review_tag_ids].each do |message| %>
+                    <br><b class="text-danger"><%= message %></b>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="mt-2">
+            <%= form.label(:review_comment, 'コメント', class: 'align-top fw-bold') %>
+            <%= form.text_area(:review_comment, value: flash[:old_review_comment]) %>
+            <% unless flash[:error_message_review_comment].nil? then %>
+                <% flash[:error_message_review_comment].each do |message| %>
+                    <br><b class="text-danger"><%= message %></b>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="mt-2">
+            <%= form.label(:price_rating, '価格評価(5段階)', class: 'fw-bold') %>
+            <%= form.select(:price_rating, $rating_select_options, { include_blank: false, selected: flash[:old_price_rating].nil? ? 3 : flash[:old_price_rating] }) %>
+            <% unless flash[:error_message_price_rating].nil? then %>
+                <% flash[:error_message_price_rating].each do |message| %>
+                    <br><b class="text-danger"><%= message %></b>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="mt-2">
+            <%= form.label(:design_rating, 'デザイン評価(5段階)', class: 'fw-bold') %>
+            <%= form.select(:design_rating, $rating_select_options, { include_blank: false, selected: flash[:old_design_rating].nil? ? 3 : flash[:old_design_rating] }) %>
+            <% unless flash[:error_message_design_rating].nil? then %>
+                <% flash[:error_message_design_rating].each do |message| %>
+                    <br><b class="text-danger"><%= message %></b>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="mt-2">
+            <%= form.label(:quality_rating, '品質評価(5段階)', class: 'fw-bold') %>
+            <%= form.select(:quality_rating, $rating_select_options, { include_blank: false, selected: flash[:old_quality_rating].nil? ? 3 : flash[:old_quality_rating] }) %>
+            <% unless flash[:error_message_quality_rating].nil? then %>
+                <% flash[:error_message_quality_rating].each do |message| %>
+                    <br><b class="text-danger"><%= message %></b>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="mt-2">
+            <%= form.submit('レビューを投稿') %>
+        </div>    
+    <% end %>
+</div>

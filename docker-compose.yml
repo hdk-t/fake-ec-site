@@ -13,6 +13,7 @@ volumes:
 services:
   app:
     tty: true
+    container_name: fake_ec_site_app
     build: ./app
     volumes:
       - ./app:/opt/app
@@ -26,6 +27,7 @@ services:
         ipv4_address: 172.22.0.2
   db:
     build: ./db
+    container_name: fake_ec_site_db
     environment:
       - MYSQL_ROOT_PASSWORD=pass
     tty: true

@@ -1,0 +1,11 @@
+ja:
+  activemodel:
+    attributes:
+      review_form:
+        item_id:        レビューID
+        reviewer_name:  お名前
+        review_tag_ids: コメントタグ
+        review_comment: コメント
+        price_rating:   価格評価
+        design_rating:  デザイン評価
+        quality_rating: 品質評価

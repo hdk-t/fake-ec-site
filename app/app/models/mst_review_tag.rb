@@ -1,0 +1,2 @@
+class MstReviewTag < ApplicationRecord
+end
