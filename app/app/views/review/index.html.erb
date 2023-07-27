@@ -1,0 +1,30 @@
+<div class="continer">
+    <%= link_to "#{@item.item_name}の商品ページ", item_detail_path(@item.id) %>
+    <h2><%= @item.item_name %>に投稿されたレビュー</h2>
+    <div class="row mt-4">
+        <% if @reviews.count == 0 then %>
+            <h4>この商品にはまだレビューがありません</h4>
+        <% else %>
+            <% @reviews.each do |review| %>
+                <div class="col-md-2 mt-2">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= review.reviewer_name %> さんのレビュー</h5>
+                            <a>コメントタグ: </a>
+                            <% review.tag_names.each do |tag_name| %>
+                                <a>#<%= tag_name %> </a>
+                            <% end %><br>
+                            <a>コメント: <%= review.review_comment %></a><br><br>
+                            <h6 class="card-title">総合評価: <%= review.review_rating %> / 5</h6>
+                            <a>価格評価: <%= review.price_rating %> / 5</a><br>
+                            <a>デザイン評価: <%= review.design_rating %> / 5</a><br>
+                            <a>品質評価: <%= review.quality_rating %> / 5</a><br>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+    <%= link_to "#{@item.item_name}のレビューを投稿する", review_new_path(@item.id) %>
+</div>
+

@@ -1,0 +1,2 @@
+class MstMaker < ApplicationRecord
+end
